@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int is_empty(FILE *file);
 void sort(date *d, int n);
 void swap(date *d1, date *d2);
 
@@ -27,13 +28,21 @@ int main() {
                     fill(&d[n1++], a);
                 }
                 if (n == 0) {
-                    print_all(d, n1);
+                    if (!is_empty(file)) {
+                        print_all(d, n1);
+                    } else {
+                        printf("n/a");
+                    }
                 } else if (n == 1) {
-                    sort(d, n1);
-                    print_all(d, n1);
-                    FILE *file = fopen(path, "wb");
-                    for (int i = 0; i < n1; i++) {
-                        fwrite(&d[i], sizeof(date), 1, file);
+                    if (!is_empty(file)) {
+                        sort(d, n1);
+                        print_all(d, n1);
+                        FILE *file = fopen(path, "wb");
+                        for (int i = 0; i < n1; i++) {
+                            fwrite(&d[i], sizeof(date), 1, file);
+                        }
+                    } else {
+                        printf("n/a");
                     }
                 } else if (n == 2) {
                     scanf("%d%d%d%d%d%d%d%d", &(d[n1].year), &(d[n1].month), &(d[n1].day),
@@ -71,4 +80,16 @@ void swap(date *d1, date *d2) {
     clone(&temp, d1);
     clone(d1, d2);
     clone(d2, &temp);
+}
+
+int is_empty(FILE *file) {
+    char c = 0;
+    int f = 0;
+    c = fgetc(file);
+    if (c == '\0') {
+        f = 1;
+    } else {
+        ungetc(c, file);
+    }
+    return f;
 }

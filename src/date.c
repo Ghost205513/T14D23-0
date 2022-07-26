@@ -72,3 +72,7 @@ void print_all(const date *s, int n) {
         print(&s[i]);
     }
 }
+
+int cmp(const date *s1, const date *s2) {
+    return s1 -> year == s2 -> year && s1 -> month == s2 -> month && s1 -> day == s2 -> day;
+}
