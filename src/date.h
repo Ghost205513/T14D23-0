@@ -1,5 +1,5 @@
-#ifndef SRC_DATA_H_
-#define SRC_DATA_H_
+#ifndef SRC_DATE_H_
+#define SRC_DATE_H_
 
 typedef struct date {
     int year;
@@ -15,5 +15,8 @@ typedef struct date {
 void fill(date *s, int *a);
 
 int date_min(const date *s1, const date *s2);
+void clone(date *s1, const date *s2);
+void print(const date *s);
+void print_all(const date *s, int n);
 
-#endif  // SRC_DATA_H_
+#endif  // SRC_DATE_H_
